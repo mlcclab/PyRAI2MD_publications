@@ -1,0 +1,137 @@
+&CONTROL
+title    tod-8mf
+qc_ncpu  1
+gl_seed  1
+jobtype  md
+qm       demo
+
+&MOLECULE
+ci   2
+spin 0
+coupling 1 2
+
+&MD
+step 2000
+size 20.67
+root 2
+sfhp fssh
+nactype ktdc
+thermo off
+direct 2000
+buffer 0
+verbose 0
+
+&NN
+modeldir    /home/lijb/MLQM/train_models/TOD-8CF3/NN-tod-8mf
+train_data  /home/lijb/MLQM/train_models/TOD-8CF3/training_data/data6656-19-new.json
+silent      1
+shuffle     false
+nsplits     10
+train_mode  training
+nn_eg_type  2
+nn_nac_type 0
+nn_soc_type 0
+permute_map /home/lijb/MLQM/train_models/TOD-8CF3/allpath2
+
+&EG
+invd_index     /home/lijb/MLQM/train_models/TOD-8CF3/invd_index2.txt
+depth          5
+nn_size        600
+activ          leaky_softplus
+activ_alpha   0.03
+loss_weights   5 1
+batch_size     64
+use_reg_activ  l2
+use_reg_weight l2
+reg_l1         1e-10
+reg_l2         1e-10
+epo            900
+epostep        10
+learning_rate_step   1e-3 1e-4 1e-5
+epoch_step_reduction 600 200 100
+
+&EG2
+invd_index     /home/lijb/MLQM/train_models/TOD-8CF3/invd_index2.txt
+depth          4
+nn_size        700
+activ          leaky_softplus
+activ_alpha   0.03
+loss_weights   5 1
+batch_size     64
+use_reg_activ  l2
+use_reg_weight l2
+reg_l1         1e-10
+reg_l2         1e-10
+epo            900
+epostep        10
+learning_rate_step   1e-3 1e-4 1e-5
+epoch_step_reduction 600 200 100
+(mlcclab) HIAM: tod-8mf cd ..
+(mlcclab) HIAM: gas_mlnamd cd tod-8pr/
+(mlcclab) HIAM: tod-8pr cat input 
+&CONTROL
+title    tod-8pr
+qc_ncpu  1
+gl_seed  1
+jobtype  md
+qm       demo
+
+&MOLECULE
+ci   2
+spin 0
+coupling 1 2
+
+&MD
+step 2000
+size 20.67
+sfhp fssh
+nactype ktdc
+root 2
+thermo off
+direct 2000
+buffer 0
+verbose 0
+
+&NN
+modeldir    /home/lijb/MLQM/train_models/TOD-8pr/NN-tod-8pr
+train_data  /home/lijb/MLQM/train_models/TOD-8pr/training_data/data7697-17-new.json
+silent      1
+nsplits     10
+nn_eg_type  2
+nn_nac_type 0
+nn_soc_type 0
+permute_map /home/lijb/MLQM/train_models/TOD-8pr/allpath2
+
+&EG
+invd_index     /home/lijb/MLQM/train_models/TOD-8pr/invd_index2.txt
+depth          6
+nn_size        500
+activ          leaky_softplus
+activ_alpha   0.03
+loss_weights   5 1
+batch_size     64
+use_reg_activ  l2
+use_reg_weight l2
+reg_l1         1e-9
+reg_l2         1e-9
+epo            600
+epostep        10
+learning_rate_step   1e-3 1e-4 1e-5
+epoch_step_reduction 400  150 50
+
+&EG2
+invd_index     /home/lijb/MLQM/train_models/TOD-8pr/invd_index2.txt
+depth          5
+nn_size        400
+activ          leaky_softplus
+activ_alpha   0.03
+loss_weights   5 1
+batch_size     64
+use_reg_activ  l2
+use_reg_weight l2
+reg_l1         1e-8
+reg_l2         1e-8
+epo            600
+epostep        10
+learning_rate_step   1e-3 1e-4 1e-5
+epoch_step_reduction 400  150 50
