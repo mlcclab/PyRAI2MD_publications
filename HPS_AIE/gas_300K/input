@@ -1,0 +1,71 @@
+&CONTROL
+title hps
+jobtype md
+qm nn
+ml_ncpu 1
+qc_ncpu 1
+maxenergy 0.03  
+minenergy 0.03
+maxgrad 0.08
+mingrad 0.08
+
+&MOLECULE
+ci 2
+spin 0
+coupling 0 1
+
+&MD
+resetstep 4000
+reset 1
+thermo nvt
+step 2000000
+size 20.67
+root 2
+sfhp  fssh
+nactype ktdc
+direct 1
+buffer 2000
+scale 3.77
+
+&NN
+modeldir path/NN-hps-5  #path mean absolute path |need to modify
+train_data  path/New-data1585-5.json   #path mean absolute path|need to modify
+nn_eg_type 2
+
+
+&EG
+invd_index path/hpss  #path mean absolute path|need to modify
+depth 4
+nn_size 700
+batch_size 64
+loss_weights 1 1
+use_reg_activ l2
+use_reg_weight l2
+use_reg_bias l2
+reg_l2 1e-9
+epo 600     
+epostep 10
+learning_rate 1e-3
+learning_rate_step 1e-3 1e-4 1e-5
+epoch_step_reduction 350 200 50
+
+&EG2
+invd_index /home/wangl/AIEcal/MLNAMD/MLNAMD-3-300k-10ps/hpss   #need to modify
+depth 4
+nn_size 400
+batch_size 64
+loss_weights 1 1
+use_reg_activ l2
+use_reg_weight l2
+use_reg_bias l2
+reg_l2 1e-8
+epo 600     
+epostep 10
+learning_rate 1e-3
+learning_rate_step 1e-3 1e-4 1e-5
+epoch_step_reduction 350 200 50
+
+
+
+
+
