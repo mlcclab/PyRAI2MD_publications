@@ -23,8 +23,8 @@ mem 2000
 &MD
 step 2000
 size 20.67
-sfhp fssh
-nactype ktdc
+sfhp gsh
+gap 4.0
 root 2
 thermo off
 direct 2000

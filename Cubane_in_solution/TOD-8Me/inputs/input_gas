@@ -5,10 +5,6 @@ gl_seed  1
 ms_ncpu  1
 jobtype  md
 qm       demo
-mingrad 0.25
-maxgrad 0.25
-maxenergy   0.043
-minenergy   0.043
 
 &MOLECULE
 ci   2
@@ -20,7 +16,8 @@ step 2000
 size 20.67
 root 2
 sfhp fssh
-nactype ktdc
+nactype gas
+gap 4.0
 thermo off
 direct 2000
 buffer 0

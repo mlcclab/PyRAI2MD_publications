@@ -24,8 +24,8 @@ mem 2000
 step 2000
 size 20.67
 root 2
-sfhp fssh
-nactype ktdc
+sfhp gsh
+gap 4.0
 thermo off
 direct 2000
 buffer 0
