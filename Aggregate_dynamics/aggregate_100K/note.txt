@@ -1,3 +1,0 @@
-# use the following commands to untar the initial conditions
-cat hpsagg.init.xyz.tar.xz.part* > hpsagg.init.xyz.tar.xz
-tar -xvf hpsagg.init.xyz.tar.xz 
