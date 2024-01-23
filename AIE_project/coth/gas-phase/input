@@ -1,0 +1,72 @@
+&CONTROL
+title coth
+jobtype md
+qm nn
+ml_ncpu 1
+qc_ncpu 1
+maxenergy 0.03  
+minenergy 0.03
+maxgrad 0.08
+mingrad 0.08
+
+&MOLECULE
+ci 3
+spin 0
+coupling 1 2,2 3
+
+&MD
+resetstep 4000
+reset 1
+thermo off
+step 400000
+size 20.67
+root 2
+sfhp  fssh
+nactype ktdc
+gap 1.0
+direct 1
+buffer 400
+
+
+&NN
+modeldir NN-coth #need to modify 
+train_data  data1934.json   #need to modify
+nn_eg_type 2
+
+
+&EG
+invd_index cothh #need to modify
+depth 3
+nn_size 500
+batch_size 64
+loss_weights 1 1
+use_reg_activ l2
+use_reg_weight l2
+use_reg_bias l2
+reg_l2 1e-7
+epo 600     #need to modify
+epostep 10
+learning_rate 1e-3
+learning_rate_step 1e-3 1e-4 1e-5
+epoch_step_reduction 350 200 50
+
+&EG2
+invd_index cothh   #need to modify
+depth 3
+nn_size 700
+batch_size 64
+loss_weights 1 1
+use_reg_activ l2
+use_reg_weight l2
+use_reg_bias l2
+reg_l2 1e-7
+epo 600     #need to modify
+epostep 10
+learning_rate 1e-3
+learning_rate_step 1e-3 1e-4 1e-5
+epoch_step_reduction 350 200 50
+
+
+
+
+
