@@ -1,0 +1,72 @@
+&CONTROL
+title     ptc
+jobtype   md
+qm        nn xtb
+
+&xtb
+xtb /work/lopez/xtb-bleed
+xtb_nproc 6
+gfnver 2
+mem 4000 
+
+&Molecule
+ci       6
+spin     0
+coupling 1 2, 2 3, 3 4, 4 5, 5 6
+embedding 1
+read_charge 1
+highlevel 1-72
+freeze 73-3024
+
+&MD
+step 400
+size 20.67
+sfhp fssh
+nactype ktdc
+root 3
+substep 25
+gap 0.1
+
+&NN
+modeldir    /scratch/jingb.li/dimer/pi/adaptive/nve-1/NN-ptc-17
+train_data  /scratch/jingb.li/dimer/pi/adaptive/nve-1/New-data3455-17.json
+silent      1
+shuffle     false
+nsplits     10
+nn_eg_type  2
+nn_nac_type 0
+nn_soc_type 0
+
+&EG
+invd_index     /scratch/jingb.li/dimer/pi/ml-namd/data/ptc
+depth          4
+nn_size        700
+activ          leaky_softplus
+activ_alpha    0.03
+batch_size     64
+use_reg_activ  l2
+use_reg_weight l2
+reg_l2         1e-9
+loss_weights       1 1
+epo               400
+epostep            10
+learning_rate	   1e-3
+learning_rate_step 1e-3  1e-4  1e-5
+epoch_step_reduction 200  150   50
+
+&EG2
+invd_index     /scratch/jingb.li/dimer/pi/ml-namd/data/ptc
+depth          6
+nn_size        600
+activ          leaky_softplus
+activ_alpha    0.03
+batch_size     64
+use_reg_activ  l2
+use_reg_weight l2
+reg_l2         1e-8
+loss_weights	   1 1
+epo               400
+epostep            10
+learning_rate	   1e-3
+learning_rate_step 1e-3  1e-4  1e-5
+epoch_step_reduction 200  150   50
