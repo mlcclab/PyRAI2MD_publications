@@ -1,0 +1,107 @@
+&CONTROL
+title tods-1
+jobtype md
+qc_ncpu 1
+ml_ncpu 1
+qm nn
+minenergy 0.05
+maxenergy 0.05
+mingrad 0.25
+maxgrad 0.25
+minsoc 60
+maxsoc 60
+
+&MOLECULE
+ci 2 2
+spin 0 1
+coupling 1 2, 3 4, 1 3, 1 4, 2 3, 2 4
+
+&NN
+train_data /home/lizhendong/cho-TDOs/NN-8-30/New-data6459-4.json
+modeldir   /home/lizhendong/cho-TDOs/NN-8-30/NN-tods
+nsplits 10
+nn_eg_type 2
+nn_nac_type 0
+nn_soc_type 2
+gpu 0
+
+&MD
+step 40000 
+size 20.67
+root 2
+sfhp fssh
+nactype ktdc
+activestate 1
+thermo off
+direct 1
+buffer 40
+
+
+&EG
+activ leaky_softplus
+activ_alpha 0.3
+depth 8
+nn_size 700
+batch_size 64
+use_reg_activ l2
+use_reg_weight l2
+use_reg_bias l2
+reg_l2 1e-7
+loss_weights 1 1
+epo 500
+epostep 10
+learning_rate 1e-3
+learning_rate_step  1e-3 1e-4 1e-5 
+epoch_step_reduction 100 300 100 
+
+&EG2
+activ leaky_softplus
+activ_alpha 0.3
+depth 6
+nn_size 800
+batch_size 64
+use_reg_activ l2
+use_reg_weight l2
+use_reg_bias l2
+reg_l2 1e-9
+loss_weights 1 1
+epo 500
+epostep 10
+learning_rate 1e-3
+learning_rate_step  1e-3 1e-4 1e-5
+epoch_step_reduction 100 300 100
+
+
+&SOC
+activ leaky_softplus
+activ_alpha 0.3
+depth 7
+nn_size 700
+batch_size 64
+use_reg_activ l2
+use_reg_weight l2
+use_reg_bias l2
+reg_l2 1e-9
+epo 500
+epostep 10
+learning_rate 1e-3
+learning_rate_step 1e-3 1e-4 1e-5 
+epoch_step_reduction 100 300 100 
+
+&SOC2
+activ leaky_softplus
+activ_alpha 0.3
+depth 6
+nn_size 700
+batch_size 64
+use_reg_activ l2
+use_reg_weight l2
+use_reg_bias l2
+reg_l2 1e-8
+epo 500
+epostep 10
+learning_rate 1e-3
+learning_rate_step 1e-3 1e-4 1e-5
+epoch_step_reduction 100 300 100
+
+

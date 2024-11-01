@@ -1,0 +1,4 @@
+untar the following files before using the model
+
+tar -xvf energy_gradient.tar.xz
+tar -xvf soc.tar.xz

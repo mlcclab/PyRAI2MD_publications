@@ -1,0 +1,218 @@
+Neural Networks Start:  2023-08-30 15:28:52
+
+
+  -------------------------------------------------------------------
+                              /\
+   |\    /|                  /++\
+   ||\  /||                 /++++\
+   || \/ || ||             /++++++\
+   ||    || ||            /PyRAI2MD\
+   ||    || ||           /++++++++++\                    __
+            ||          /++++++++++++\    |\ |  /\  |\/| | \
+            ||__ __    *==============*   | \| /--\ |  | |_/
+
+                          Python Rapid
+                     Artificial Intelligence
+                  Ab Initio Molecular Dynamics
+
+
+
+                      Author @Jingbai Li
+                      
+                      
+    2022 – present   Hoffmann Institute of Advanced Materials
+                     Shenzhen Polytechnic, Shenzhen, China    
+                                
+    2019 – 2022      Department of Chemistry and Chemical Biology
+                     Northeastern University, Boston, USA
+
+                          version:   2.4.0
+
+  With contributions from (in alphabetic order):
+    Jingbai Li     - Fewest switches surface hopping
+                     Zhu-Nakamura surface hopping
+                     Velocity Verlet
+                     OpenMolcas interface
+                     OpenMolcas/Tinker interface
+                     BAGEL interface
+                     ORCA interface
+                     GFN-xTB interface
+                     Adaptive sampling
+                     Grid search
+                     Multilayer ONIOM (QM:QM' and QM:QM':MM)
+                     Periodic boundary condition (coming soon)
+                     Wall potential
+                     QC/ML hybrid NAMD
+                     Excited-state Equivariant Neural Network
+
+    Patrick Reiser - Fully connected neural networks (pyNNsMD)
+                     SchNet (pyNNsMD)
+
+  Special acknowledgement to:
+    Steven A. Lopez            - Project co-founder
+    Pascal Friederich          - Project co-founder
+
+
+
+
+  &control
+-------------------------------------------------------
+  Title:                      tods      
+  NPROCS for ML:              4         
+  NPROCS for QC:              1         
+  NPROCS for Multiscale:      1          
+  Seed:                       1         
+  Job: 	                      train     
+  QM:          	       	      nn        
+  Ab initio:                  molcas    
+-------------------------------------------------------
+
+        
+  &molecule
+-------------------------------------------------------
+  States:                     [1]       
+  Spin:                       [0]       
+  Interstates:                []        
+  QMMM keyfile:               None      
+  QMMM xyzfile:               Input     
+  High level region:          []         ...
+  Middel level region:        []         ...
+  Boundary:                   []         ...
+  Embedding charges:          False     
+  Reading charge:             False     
+  Frozen atoms:               []        
+  Constrained atoms:          []        
+  External potential shape:   ellipsoid 
+  External potential factor:  40        
+  External potential radius:  []        
+  External potential center:  []        
+  Compress potential shape:   []        
+  Track geometry type:        None      
+  Track indices:              []        
+  Track threshold:            []        
+  Track stop task:            0         
+  Primitive vectors:          []        
+  Lattice constant:           []        
+-------------------------------------------------------
+
+        
+  &nn
+-------------------------------------------------------
+  Train data:                 New-data6459-4.json
+  Prediction data:            None      
+  Train mode:                 training  
+  Silent mode:                1         
+  Data splits:                10        
+  NN EG type:                 2         
+  NN NAC type:                0         
+  NN SOC type:                2         
+  Multiscale:                 []        
+  Shuffle data:               False     
+  EG unit:                    si        
+  NAC unit:                   si        
+  SOC unit:                   cm-1
+  Select EG output:           []        
+  Select NAC output:          []        
+  Select SOC output:          []          
+  Data permutation            No        
+-------------------------------------------------------
+
+        
+
+  multilayer perceptron (native)
+  
+  &hyperparameters(1)         Energy+Gradient      Nonadiabatic         Spin-orbit
+----------------------------------------------------------------------------------------------
+  InvD features:              0                    0                    0                    
+  Angle features:             0                    0                    0                   
+  Dihedral features:          0                    0                    0                   
+  Activation:                 leaky_softplus       leaky_softplus       leaky_softplus      
+  Activation alpha:           0.3                  0.03                 0.3                 
+  Layers:      	              8                    4                    7                   
+  Neurons/layer:              700                  100                  700                 
+  Dropout:                    False                False                False               
+  Dropout ratio:              0.005                0.005                0.005               
+  Regularization activation:  l2                   None                 l2                  
+  Regularization weight:      l2                   None                 l2                  
+  Regularization bias:        l2                   None                 l2                  
+  L1:                         1e-05                1e-05                1e-05               
+  L2:         	              1e-07                1e-05                1e-09               
+  Loss weights:               [1.0, 1.0]                                                    
+  Phase-less loss:                                 False                                    
+  Initialize weight:          True                 True                 True                
+  Epoch:                      500                  2000                 500                 
+  Epoch_pre:                                       100                                      
+  Epoch_min                   1000                 1000                 1000                
+  Patience:                   300                  300                  300                 
+  Max time:                   300                  300                  300                 
+  Epoch step:                 10                   10                   10                  
+  Batch:                      64                   64                   64                  
+  Delta loss:                 1e-05                1e-05                1e-05               
+  Shift_X:     	       	      False                False                False               
+  Scale_X:                    False                False                False               
+  Shift_Y:                    True                 True                 True                
+  Scale_Y:                    True                 True                 True                
+  Feature normalization:      1                    1                    1                   
+----------------------------------------------------------------------------------------------
+
+
+  
+  &hyperparameters(2)         Energy+Gradient      Nonadiabatic         Spin-orbit
+----------------------------------------------------------------------------------------------
+  InvD features:              0                    0                    0                    
+  Angle features:             0                    0                    0                   
+  Dihedral features:          0                    0                    0                   
+  Activation:                 leaky_softplus       leaky_softplus       leaky_softplus      
+  Activation alpha:           0.3                  0.03                 0.3                 
+  Layers:      	              6                    4                    6                   
+  Neurons/layer:              800                  100                  700                 
+  Dropout:                    False                False                False               
+  Dropout ratio:              0.005                0.005                0.005               
+  Regularization activation:  l2                   None                 l2                  
+  Regularization weight:      l2                   None                 l2                  
+  Regularization bias:        l2                   None                 l2                  
+  L1:                         1e-05                1e-05                1e-05               
+  L2:         	              1e-09                1e-05                1e-08               
+  Loss weights:               [1.0, 1.0]                                                    
+  Phase-less loss:                                 False                                    
+  Initialize weight:          True                 True                 True                
+  Epoch:                      500                  2000                 500                 
+  Epoch_pre:                                       100                                      
+  Epoch_min                   1000                 1000                 1000                
+  Patience:                   300                  300                  300                 
+  Max time:                   300                  300                  300                 
+  Epoch step:                 10                   10                   10                  
+  Batch:                      64                   64                   64                  
+  Delta loss:                 1e-05                1e-05                1e-05               
+  Shift_X:     	       	      False                False                False               
+  Scale_X:                    False                False                False               
+  Shift_Y:                    True                 True                 True                
+  Scale_Y:                    True                 True                 True                
+  Feature normalization:      1                    1                    1                   
+----------------------------------------------------------------------------------------------
+
+
+
+
+ *---------------------------------------------------*
+ |                                                   |
+ |                  Neural Networks                  |
+ |                                                   |
+ *---------------------------------------------------*
+
+ Number of atoms:  18
+ Number of state:  4
+ Number of NAC:    0
+ Number of SOC:    4
+
+
+  &nn fitting 
+
+  &nn validation mean absolute error
+-------------------------------------------------------
+      energy       gradient       nac          soc
+        eV           eV/A         eV/A         cm-1
+    0.03374827   0.12637406   0.00000000   1.92617879
+    0.03399803   0.13557975   0.00000000   2.44347563
+
+Neural Networks End:  2023-08-30 16:20:48 Total:     0 days     0 hours    51 minutes    58 seconds

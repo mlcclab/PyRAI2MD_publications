@@ -1,0 +1,3 @@
+untar the data before using it
+
+tar -xvf New-data6459-4.tar.xz
